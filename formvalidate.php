@@ -9,8 +9,8 @@
   
 <?php  
 // define variables to empty values  
-$nameErr = $emailErr = $mobilenoErr = $genderErr = $websiteErr = $agreeErr = "";  
-$name = $email = $mobileno = $gender = $website = $agree = "";  
+$nameErr = $emailErr = $mobilenoErr = $genderErr = $websiteErr = $agreeErr = $dobErr = "";  
+$name = $email = $mobileno = $gender = $website = $agree = $dob = "";  
   
 //Input fields validation  
 if ($_SERVER["REQUEST_METHOD"] == "POST") {  
@@ -62,6 +62,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $websiteErr = "Invalid URL";  
             }      
     }  
+
+    //dob validation
+    if (empty($_POST["dob"])) {  
+      $dob = "";  
+    } else {
+      $dob = input_data($_POST["dob"]);
+    }
       
     //Empty Field Validation  
     if (empty ($_POST["gender"])) {  
@@ -106,7 +113,10 @@ function input_data($data) {
     <span class="error"><?php echo $websiteErr; ?> </span>  
     <br><br>  
     DOB: 
-    
+    <input type="date" id="dob" name="dob">
+    <span class="error"><?php echo $dobErr; ?> </span>  
+    <br><br>  
+
     Gender:  
     <input type="radio" name="gender" value="male"> Male  
     <input type="radio" name="gender" value="female"> Female  
@@ -133,6 +143,8 @@ function input_data($data) {
         echo "Mobile No: " .$mobileno;  
         echo "<br>";  
         echo "Website: " .$website;  
+        echo "<br>";  
+        echo "DOB: " .$dob;  
         echo "<br>";  
         echo "Gender: " .$gender;  
     } else {  
